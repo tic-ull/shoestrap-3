@@ -12,14 +12,23 @@ if ( ! class_exists( 'Shoestrap_Color' ) ) {
 
 		public static function sanitize_hex( $color ) {
 			// Remove any spaces and special characters before and after the string
-			$color = trim( $color. ' \t\n\r\0\x0B' );
+			$color = trim( $color, ' \t\n\r\0\x0B' );
 
 			// Remove any trailing '#' symbols from the color value
 			$color = str_replace( '#', '', $color );
+			
+			// Check if this is a valid hex color
+			if ( empty( $color ) || ! ctype_xdigit( $color ) ) {
+				return '#ffffff';
+			}
 
 			// If there are more than 6 characters, only keep the first 6.
 			if ( strlen( $color ) > 6 ) {
-				$color = substr( $color, 0, 6 );
+				 if ( strpos( $color, 'transparent' ) === false ) {
+					$color = substr( $color, 0, 6 );
+				} else {
+					$color = 'ffffff';
+				}
 			}
 
 			if ( strlen( $color ) == 6 ) {

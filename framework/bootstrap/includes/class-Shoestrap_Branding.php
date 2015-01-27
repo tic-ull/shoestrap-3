@@ -50,6 +50,10 @@ if ( !class_exists( 'Shoestrap_Branding' ) ) {
 			$logo  = $ss_settings['logo'];
 
 			if ( ! empty( $logo['url'] ) ) {
+				//added to aid with SSL
+				$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https:" : "http:";
+				$logo['url'] = $protocol. str_replace(array('http:', 'https:'), '', $logo['url']);
+				
 				$branding = '<img id="site-logo" src="' . $logo['url'] . '" alt="' . get_bloginfo( 'name' ) . '">';
 			} else {
 				$branding = '<span class="sitename">' . get_bloginfo( 'name' ) . '</span>';

@@ -182,7 +182,7 @@ if ( ! class_exists( 'Shoestrap_Menus' ) ) {
 		 * and then add the appropriate logo or sitename.
 		 */
 		function navbar_brand() {
-			global $ss_settings, $ss_framework;
+			global $ss_settings;
 
 			$logo           = $ss_settings['logo'];
 			$branding_class = ! empty( $logo['url'] ) ? 'logo' : 'text';
@@ -190,13 +190,13 @@ if ( ! class_exists( 'Shoestrap_Menus' ) ) {
 
 			if ( $ss_settings['navbar_brand'] === 'on' ) {
 				$branding  = '<a class="navbar-brand ' . $branding_class . '" href="' . home_url('/') . '">';
-				$branding .= $ss_settings['navbar_logo'] == 1 ? $ss_framework->logo() : get_bloginfo( 'name' );
+				$branding .= $ss_settings['navbar_logo'] == 1 ? Shoestrap_Branding::logo() : get_bloginfo( 'name' );
 				$branding .= '</a>';
 			} elseif ( $ss_settings['navbar_brand'] === 'off' ){
 				$branding = '';
 			} elseif ( $ss_settings['navbar_brand'] === 'both' ){
 				$branding  = '<a class="navbar-brand ' . $branding_class . '" href="' . home_url('/') . '">';
-				$branding .= $ss_framework->logo();
+				$branding .= Shoestrap_Branding::logo();
 				$branding .= '</a>';
 				$branding .= '<span class="navbar-sitename">' .get_bloginfo( 'name' ) .'</span>';
 			}
@@ -228,7 +228,7 @@ if ( ! class_exists( 'Shoestrap_Menus' ) ) {
 				'name'          => __( 'In-Navbar Widget Area', 'shoestrap' ),
 				'id'            => 'navbar',
 				'description'   => __( 'This widget area will show up in your NavBars. This is most useful when using a static-left navbar.', 'shoestrap' ),
-				'before_widget' => '<div id="in-navbar">',
+				'before_widget' => '<div id="%1$s" class="in-navbar">',
 				'after_widget'  => '</div>',
 				'before_title'  => '<h1>',
 				'after_title'   => '</h1>',
